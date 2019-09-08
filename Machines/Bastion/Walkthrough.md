@@ -1,4 +1,4 @@
-1
+![alt text](https://raw.githubusercontent.com/0xatul/HTB-Writeups/master/Machines/Bastion/Images/1.PNG)
 ## Intro 
 Target: 10.10.10.134
 
@@ -56,8 +56,9 @@ There seem to nothing special.Let's try smb service for the port 445. For mb ser
 
 Lets try smbclient:
 ```
-smbclient -L //10.10.10.134/
-`2``
+smbclient -L 10.10.10.134
+```
+![alt text](https://raw.githubusercontent.com/0xatul/HTB-Writeups/master/Machines/Bastion/Images/2.PNG)
 
 With this tool we can see smb shares of this box without any password. Try accessing some shares by 
 ```smbclient -L //10.10.10.134/**insert sharename here**```. In this case, you can acces **Backups** :
@@ -65,7 +66,8 @@ With this tool we can see smb shares of this box without any password. Try acces
 root@kali:~/CTF# smbclient //10.10.10.134/Backups
 
 ```
-3
+![alt text](https://raw.githubusercontent.com/0xatul/HTB-Writeups/master/Machines/Bastion/Images/3.PNG)
+
 Voila! We got a shell now.So lets see what we have in here.
 
 
