@@ -1,4 +1,4 @@
-https://github.com/0xatul/HTB-Writeups/blob/master/Machines/Bastion/Images/1.PNG
+![](./Images/1.PNG)
 ##Intro 
 Target: 10.10.10.134
 
@@ -58,7 +58,7 @@ Lets try smbclient:
 ```
 smbclient -L 10.10.10.134
 ```
-<img src="Machines/Bastion/Images/2.PNG">
+![](./Images/2.PNG)
 
 With this tool we can see smb shares of this box without any password. Try accessing some shares by 
 ```smbclient -L //10.10.10.134/**insert sharename here**```. In this case, you can acces **Backups** :
@@ -66,11 +66,12 @@ With this tool we can see smb shares of this box without any password. Try acces
 root@kali:~/CTF# smbclient //10.10.10.134/Backups
 
 ```
-<img src="Machines/Bastion/Images/3.PNG">
+![](./Images/3.PNG)
 
 Voila! We got a shell now.So lets see what we have in here. Now lets see what twe got in there.
 
-4
+![](./Images/4.PNG)
+
 Content of note.txt:
 ```
 Sysadmins: please don't transfer the entire backup file locally, the VPN to the subsidiary office is too slow.
@@ -130,34 +131,34 @@ L4mpje:1000:aad3b435b51404eeaad3b435b51404ee:26112010952d963c8dc4217daec986d9:::
 ```
 Now lets Drop that sweet hash ```26112010952d963c8dc4217daec986d9``` in hashcat or you can use some online tools to identify and decrypt the hash. I recommend using hashes.org.And we get the password for the user L4mpje-PC,Now lets login as that particular user in ssh.
 
-<img src="Machines/Bastion/Images/5.PNG">
+![](./Images/5.PNG)
 
 #### 3. Getting user flag
 Fire up the terminal and using ssh login as L4mpje. So the sweet terminal is working and it's a childs play to get the hash so yeah.
 
-<img src="Machines/Bastion/Images/6.PNG">
+![](./Images/6.PNG)
 
-<img src="Machines/Bastion/Images/7.PNG">
+![](./Images/7.PNG)
 
 Now let's proceed to privillege escalation **My favourite part**
 
 #### 4. Privillege Escalation
 After screwing around and raging, I found a intresting program installed by that particular user on appdata 'mRemoteNG'.So, after checking that out I found a confCons.xml and looked whats in it and voila I found the Administrator creds!! Lets drop that hash in a tool that some one has put it out for us. <a href="https://github.com/kmahyyg/mremoteng-decrypt/blob/master/mremoteng_decrypt.py"> mremoteng-decrypt </a>
 
-<img src="Machines/Bastion/Images/8.PNG">
+![](./Images/8.PNG)
 
-<img src="Machines/Bastion/Images/9.PNG">
+![](./Images/9.PNG)
 
-<img src="Machines/Bastion/Images/10.PNG">
+![](./Images/10.PNG)
 
 ```
 java -jar decipher_mremoteng.jar "aEWNFV5uGcjUHF0uS17QTdT9kVqtKCPeoC0Nw5dmaPFjNQ2kt/zO5xDqE4HdVmHAowVRdC7emf7lWWA10dQKiw==" 
 ```
 Now we go the admin creds, Lets login and get the flag.  
 
-<img src="Machines/Bastion/Images/11.PNG">
+![](./Images/11.PNG)
 
-<img src="Machines/Bastion/Images/12.PNG">
+![](./Images/12.PNG)
 
 See its # **Easy peasy**
 
