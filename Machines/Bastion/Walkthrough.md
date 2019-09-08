@@ -1,4 +1,4 @@
-<img src="Machines/Bastion/Images/1.PNG">
+https://github.com/0xatul/HTB-Writeups/blob/master/Machines/Bastion/Images/1.PNG
 ##Intro 
 Target: 10.10.10.134
 
