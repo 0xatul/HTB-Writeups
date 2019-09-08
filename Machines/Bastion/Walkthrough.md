@@ -129,7 +129,7 @@ root@kali:~CTF/bastion/mnt/vhd# samdump2 ./SYSTEM ./SAM
 L4mpje:1000:aad3b435b51404eeaad3b435b51404ee:26112010952d963c8dc4217daec986d9:::
 ```
 Now lets Drop that sweet hash ```26112010952d963c8dc4217daec986d9``` in hashcat or you can use some online tools to identify and decrypt the hash. I recommend using hashes.org.And we get the password for the user L4mpje-PC,Now lets login as that particular user in ssh. 
-#### 3. Getiing user flag
+#### 3. Getting user flag
 Fire up the terminal and using ssh login as L4mpje. So the sweet terminal is working and it's a childs play to get the hash so yeah.
 
 Now let's proceed to privillege escalation **My favourite part**
