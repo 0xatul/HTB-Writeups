@@ -160,5 +160,5 @@ Now we go the admin creds, Lets login and get the flag.
 
 ![](./Images/12.PNG)
 
-See its  #Easy peasy
+# Easy peasy
 
