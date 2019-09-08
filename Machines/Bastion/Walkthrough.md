@@ -1,10 +1,10 @@
-![alt text](https://raw.githubusercontent.com/0xatul/HTB-Writeups/master/Machines/Bastion/Images/1.PNG)
-## Intro 
+<img src="Machines/Bastion/Images/1.PNG">
+##Intro 
 Target: 10.10.10.134
 
 It's a easy box and I will be using kali linux for solving this.
-## Steps
-#### 1. Info Gathering
+##Steps
+####1. Info Gathering
 First, Run a nmap scan to see open ports and services.
 ```
 root@kali:~/CTF# nmap -sC -sV 10.10.10.134
@@ -51,14 +51,14 @@ Nmap done: 1 IP address (1 host up) scanned in 29.28 seconds
 ```
 From the open ports, It can be known that the box is a windows machine and we can see its servies. So lets jump right into the fun part. 
 
-#### 2. Exploitation
+####2. Exploitation
 There seem to nothing special.Let's try smb service for the port 445. For mb service exploitation in kali, we use smbmap, smbclient, enum4linux, etc.
 
 Lets try smbclient:
 ```
 smbclient -L 10.10.10.134
 ```
-![alt text](https://raw.githubusercontent.com/0xatul/HTB-Writeups/master/Machines/Bastion/Images/2.PNG)
+<img src="Machines/Bastion/Images/2.PNG">
 
 With this tool we can see smb shares of this box without any password. Try accessing some shares by 
 ```smbclient -L //10.10.10.134/**insert sharename here**```. In this case, you can acces **Backups** :
@@ -66,8 +66,19 @@ With this tool we can see smb shares of this box without any password. Try acces
 root@kali:~/CTF# smbclient //10.10.10.134/Backups
 
 ```
-![alt text](https://raw.githubusercontent.com/0xatul/HTB-Writeups/master/Machines/Bastion/Images/3.PNG)
+<img src="Machines/Bastion/Images/3.PNG">
 
-Voila! We got a shell now.So lets see what we have in here.
+Voila! We got a shell now.So lets see what we have in here. Now lets see what twe got in there.
+
+4
+Content of note.txt:
+```
+Sysadmins: please don't transfer the entire backup file locally, the VPN to the subsidiary office is too slow.
+```
+Now let's mount that backup folder.
+
+```
+mount -t cifs //10.10.10.134/Backups -o user=guest,password= mnt/backups
+````
 
 
