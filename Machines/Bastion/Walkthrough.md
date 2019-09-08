@@ -128,18 +128,36 @@ root@kali:~CTF/bastion/mnt/vhd# samdump2 ./SYSTEM ./SAM
 *disabled* Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 L4mpje:1000:aad3b435b51404eeaad3b435b51404ee:26112010952d963c8dc4217daec986d9:::
 ```
-Now lets Drop that sweet hash ```26112010952d963c8dc4217daec986d9``` in hashcat or you can use some online tools to identify and decrypt the hash. I recommend using hashes.org.And we get the password for the user L4mpje-PC,Now lets login as that particular user in ssh. 
+Now lets Drop that sweet hash ```26112010952d963c8dc4217daec986d9``` in hashcat or you can use some online tools to identify and decrypt the hash. I recommend using hashes.org.And we get the password for the user L4mpje-PC,Now lets login as that particular user in ssh.
+
+<img src="Machines/Bastion/Images/5.PNG">
+
 #### 3. Getting user flag
 Fire up the terminal and using ssh login as L4mpje. So the sweet terminal is working and it's a childs play to get the hash so yeah.
+
+<img src="Machines/Bastion/Images/6.PNG">
+
+<img src="Machines/Bastion/Images/7.PNG">
 
 Now let's proceed to privillege escalation **My favourite part**
 
 #### 4. Privillege Escalation
 After screwing around and raging, I found a intresting program installed by that particular user on appdata 'mRemoteNG'.So, after checking that out I found a confCons.xml and looked whats in it and voila I found the Administrator creds!! Lets drop that hash in a tool that some one has put it out for us. <a href="https://github.com/kmahyyg/mremoteng-decrypt/blob/master/mremoteng_decrypt.py"> mremoteng-decrypt </a>
 
+<img src="Machines/Bastion/Images/8.PNG">
+
+<img src="Machines/Bastion/Images/9.PNG">
+
+<img src="Machines/Bastion/Images/10.PNG">
+
 ```
 java -jar decipher_mremoteng.jar "aEWNFV5uGcjUHF0uS17QTdT9kVqtKCPeoC0Nw5dmaPFjNQ2kt/zO5xDqE4HdVmHAowVRdC7emf7lWWA10dQKiw==" 
 ```
 Now we go the admin creds, Lets login and get the flag. See its 
+
+<img src="Machines/Bastion/Images/11.PNG">
+
+<img src="Machines/Bastion/Images/12.PNG">
+
 # **Easy peasy**
 
