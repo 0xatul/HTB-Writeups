@@ -153,11 +153,11 @@ After screwing around and raging, I found a intresting program installed by that
 ```
 java -jar decipher_mremoteng.jar "aEWNFV5uGcjUHF0uS17QTdT9kVqtKCPeoC0Nw5dmaPFjNQ2kt/zO5xDqE4HdVmHAowVRdC7emf7lWWA10dQKiw==" 
 ```
-Now we go the admin creds, Lets login and get the flag. See its 
+Now we go the admin creds, Lets login and get the flag.  
 
 <img src="Machines/Bastion/Images/11.PNG">
 
 <img src="Machines/Bastion/Images/12.PNG">
 
-# **Easy peasy**
+See its # **Easy peasy**
 
